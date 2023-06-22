@@ -4,6 +4,8 @@ import Avatar from '../Avatar'
 import MenuItem from './MenuItem'
 import { useCallback, useState } from 'react'
 import Modal from '../modal/Modal'
+import useRegisterModal from '@/app/hooks/useRegisterModal'
+import useLoginModal from '@/app/hooks/useLoginModal'
 
 const UserMenu = () => {
   const [isOpen, SetIsOpen] = useState(false)
@@ -11,6 +13,8 @@ const UserMenu = () => {
   const toggleOpen = useCallback(() => {
     SetIsOpen((value) => !value)
   }, [])
+  const registerModal = useRegisterModal()
+  const loginModal = useLoginModal()
 
   return (
     <div
@@ -75,8 +79,10 @@ const UserMenu = () => {
               overflow-hidden
         "
           >
-            {isOpen && <MenuItem label="Đăng nhập" onClick={() => {}} />}
-            {isOpen && <MenuItem label="Đăng ký" onClick={() => {}} />}
+            {isOpen && <MenuItem label="Login" onClick={loginModal.onOpen} />}
+            {isOpen && (
+              <MenuItem label="Sing up" onClick={registerModal.onOpen} />
+            )}
           </div>
         </div>
       </div>

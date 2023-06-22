@@ -1,6 +1,7 @@
 import ClientOnly from './components/ClientOnly'
 import Container from './components/Container'
-import Modal from './components/modal/Modal'
+import LoginModal from './components/modal/LoginModal'
+import RegisterModal from './components/modal/RegisterModal'
 import Navbar from './components/navbar'
 import './globals.css'
 import { Nunito } from 'next/font/google'
@@ -24,6 +25,8 @@ export default function RootLayout({
           <Container>
             <Navbar />
           </Container>
+          <RegisterModal />
+          <LoginModal />
         </ClientOnly>
 
         <section className="mt-24">
