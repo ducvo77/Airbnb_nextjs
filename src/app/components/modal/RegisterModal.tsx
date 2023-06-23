@@ -9,12 +9,9 @@ import { toast } from 'react-hot-toast'
 import axios from 'axios'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 
-interface RegisterModalProps {}
-
-const RegisterModal: React.FC<RegisterModalProps> = () => {
+const RegisterModal = () => {
   const registerModal = useRegisterModal()
   const loginModal = useLoginModal()
-  const [isLoading, setIsLoading] = useState(false)
 
   const {
     register,
@@ -29,22 +26,19 @@ const RegisterModal: React.FC<RegisterModalProps> = () => {
   })
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    setIsLoading(true)
-
-    // axios
-    //   .post('/api/register', data)
-    //   .then(() => {
-    //     toast.success('Registered!')
-    //     registerModal.onClose()
-    //     loginModal.onOpen()
-    //   })
-    //   .catch((error) => {
-    //     toast.error(error)
-    //   })
-    //   .finally(() => {
-    //     setIsLoading(false)
-    //   })
+    axios
+      .post('/api/register', data)
+      .then(() => {
+        toast.success('Registered!')
+        registerModal.onClose()
+        loginModal.onOpen()
+      })
+      .catch((error) => {
+        toast.error(error)
+      })
   }
+
+  // const onSubmit: SubmitHandler<FieldValues> = (data) => console.log(data)
 
   const onToggle = useCallback(() => {
     registerModal.onClose()
@@ -53,13 +47,19 @@ const RegisterModal: React.FC<RegisterModalProps> = () => {
 
   const body = (
     <div className="mb-4 flex flex-col gap-6">
-      <Input size="lg" label="Name" disabled={isLoading} required />
-      <Input size="lg" label="Email" id="email" disabled={isLoading} required />
+      <Input {...register('name', { required: true })} size="lg" label="Name" />
       <Input
+        {...register('email', { required: true })}
+        size="lg"
+        label="Email"
+        id="email"
+        type="email"
+      />
+      <Input
+        {...register('password', { required: true })}
         type="password"
         size="lg"
         label="Password"
-        disabled={isLoading}
         required
       />
     </div>
@@ -67,14 +67,16 @@ const RegisterModal: React.FC<RegisterModalProps> = () => {
   const footer = (
     <>
       <span>Already have an account?</span>
-      <span className="text-blue-gray-800 font-semibold cursor-pointer">
+      <span
+        onClick={onToggle}
+        className="text-blue-gray-800 font-semibold cursor-pointer"
+      >
         Login
       </span>
     </>
   )
   return (
     <Modal
-      disabled={isLoading}
       title="Register"
       label="Welcome to Airbnb"
       description="Create an acccount"

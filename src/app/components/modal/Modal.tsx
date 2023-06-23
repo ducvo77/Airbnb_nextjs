@@ -15,7 +15,6 @@ interface ModalProps {
   description: string
   body: React.ReactElement
   footer: React.ReactElement
-  disabled: boolean
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -27,7 +26,6 @@ const Modal: React.FC<ModalProps> = ({
   description,
   body,
   footer,
-  disabled,
 }) => {
   const [show, setShow] = useState(false)
 
@@ -38,17 +36,25 @@ const Modal: React.FC<ModalProps> = ({
   }, [isOpen])
 
   const handleClose = useCallback(() => {
-    if (disabled) return
-
     setShow(false)
     setTimeout(() => {
       onClose()
     }, 300)
-  }, [onClose, disabled])
+  }, [onClose])
+
+  const handleSubmit = useCallback(() => {
+    if (onSubmit) {
+      onSubmit()
+    }
+  }, [onSubmit])
+
+  if (!isOpen) {
+    return null
+  }
 
   return (
     show && (
-      <div className="fixed inset-0  bg-black/50 flex items-center justify-center ">
+      <div className="modal fixed inset-0  bg-black/50 flex items-center justify-center ">
         <Card
           color="white"
           className={`p-10 rounded-lg relative`}
@@ -59,7 +65,6 @@ const Modal: React.FC<ModalProps> = ({
             className="absolute right-3 top-3 cursor-pointer "
             onClick={handleClose}
           />
-          {/* Content */}
           <div className="flex relative items-center justify-center pb-3 border-b mb-3">
             <h3 className="font-bold text-black text-lg]">{title}</h3>
           </div>
@@ -73,11 +78,12 @@ const Modal: React.FC<ModalProps> = ({
           {/*body*/}
           <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
             {body}
-            {/*footer*/}
+
             <Button className="mt-6 bg-primary" fullWidth onClick={onSubmit}>
               Continue
             </Button>
           </form>
+          {/*footer*/}
           <div className="mt-4 border-t-[1px] pt-4 flex flex-col gap-3">
             <button className="w-full flex border-[2px] border-black rounded-md p-2 relative items-center justify-center font-bold">
               <FcGoogle size={20} className="absolute left-4" />

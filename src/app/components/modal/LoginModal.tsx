@@ -10,13 +10,10 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
 import { signIn } from 'next-auth/react'
 
-interface LoginModalProps {}
-
-const LoginModal: React.FC<LoginModalProps> = () => {
+const LoginModal = () => {
   const router = useRouter()
   const loginModal = useLoginModal()
   const registerModal = useRegisterModal()
-  const [isLoading, setIsLoading] = useState(false)
 
   const {
     register,
@@ -30,14 +27,10 @@ const LoginModal: React.FC<LoginModalProps> = () => {
   })
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    setIsLoading(true)
-
     signIn('credentials', {
       ...data,
       redirect: false,
     }).then((callback) => {
-      setIsLoading(false)
-
       if (callback?.ok) {
         toast.success('Logged in')
         router.refresh()
@@ -50,6 +43,8 @@ const LoginModal: React.FC<LoginModalProps> = () => {
     })
   }
 
+  // const onSubmit: SubmitHandler<FieldValues> = (data) => console.log(data)
+
   const onToggle = useCallback(() => {
     loginModal.onClose()
     registerModal.onOpen()
@@ -57,27 +52,33 @@ const LoginModal: React.FC<LoginModalProps> = () => {
 
   const body = (
     <div className="mb-4 flex flex-col gap-6">
-      <Input size="lg" id="Email" type="text" label="Email" required />
       <Input
+        {...register('email', { required: true })}
         size="lg"
-        id="password"
+        type="text"
+        label="Email"
+      />
+      <Input
+        {...register('password', { required: true })}
+        size="lg"
         type="password"
         label="Password"
-        required
       />
     </div>
   )
   const footer = (
     <>
       <span>No account?</span>
-      <span className="text-blue-gray-800 font-semibold cursor-pointer">
+      <span
+        onClick={onToggle}
+        className="text-blue-gray-800 font-semibold cursor-pointer"
+      >
         Register a new account
       </span>
     </>
   )
   return (
     <Modal
-      disabled={isLoading}
       title="Login"
       label="Welcome back"
       description="Login to your account!"
