@@ -5,6 +5,7 @@ import RegisterModal from './components/modal/RegisterModal'
 import Navbar from './components/navbar'
 import './globals.css'
 import { Nunito } from 'next/font/google'
+import ToasterProvider from './providers/ToastProvider'
 
 const nunito = Nunito({ subsets: ['latin'] })
 
@@ -27,6 +28,7 @@ export default function RootLayout({
           </Container>
           <RegisterModal />
           <LoginModal />
+          <ToasterProvider />
         </ClientOnly>
 
         <section className="mt-24">

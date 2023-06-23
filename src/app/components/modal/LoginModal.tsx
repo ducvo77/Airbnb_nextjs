@@ -43,8 +43,6 @@ const LoginModal = () => {
     })
   }
 
-  // const onSubmit: SubmitHandler<FieldValues> = (data) => console.log(data)
-
   const onToggle = useCallback(() => {
     loginModal.onClose()
     registerModal.onOpen()

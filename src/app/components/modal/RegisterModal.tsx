@@ -1,7 +1,7 @@
 'use client'
 
 import { Input } from '@material-tailwind/react'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect } from 'react'
 import Modal from './Modal'
 import useRegisterModal from '@/app/hooks/useRegisterModal'
 import useLoginModal from '@/app/hooks/useLoginModal'
@@ -37,8 +37,6 @@ const RegisterModal = () => {
         toast.error(error)
       })
   }
-
-  // const onSubmit: SubmitHandler<FieldValues> = (data) => console.log(data)
 
   const onToggle = useCallback(() => {
     registerModal.onClose()

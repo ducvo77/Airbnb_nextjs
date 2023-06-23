@@ -3,7 +3,6 @@ import { BiMenu } from 'react-icons/bi'
 import Avatar from '../Avatar'
 import MenuItem from './MenuItem'
 import { useCallback, useState } from 'react'
-import Modal from '../modal/Modal'
 import useRegisterModal from '@/app/hooks/useRegisterModal'
 import useLoginModal from '@/app/hooks/useLoginModal'
 
