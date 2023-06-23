@@ -24,13 +24,6 @@ const MenuItem: React.FC<MenuItemProps> = ({ onClick, label }) => {
           {label}
         </span>
       </div>
-      <span
-        className="
-        w-full h-[1px]
-      bg-gray-300
-        flex
-      "
-      ></span>
     </div>
   )
 }

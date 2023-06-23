@@ -5,10 +5,15 @@ import MenuItem from './MenuItem'
 import { useCallback, useState } from 'react'
 import useRegisterModal from '@/app/hooks/useRegisterModal'
 import useLoginModal from '@/app/hooks/useLoginModal'
+import { signOut } from 'next-auth/react'
+import { SafeUser } from '../../types'
 
-const UserMenu = () => {
+interface UserMenuProps {
+  currentUser?: SafeUser | null
+}
+
+const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const [isOpen, SetIsOpen] = useState(false)
-
   const toggleOpen = useCallback(() => {
     SetIsOpen((value) => !value)
   }, [])
@@ -65,7 +70,7 @@ const UserMenu = () => {
         >
           <BiMenu size={20} />
           <div className="hidden md:block">
-            <Avatar />
+            <Avatar source={currentUser?.image} />
           </div>
           <div
             className="
@@ -78,10 +83,27 @@ const UserMenu = () => {
               overflow-hidden
         "
           >
-            {isOpen && <MenuItem label="Login" onClick={loginModal.onOpen} />}
-            {isOpen && (
-              <MenuItem label="Sing up" onClick={registerModal.onOpen} />
-            )}
+            {!currentUser
+              ? isOpen && (
+                  <>
+                    <MenuItem label="Login" onClick={loginModal.onOpen} />
+                    <MenuItem label="Sing up" onClick={registerModal.onOpen} />
+                  </>
+                )
+              : isOpen && (
+                  <>
+                    <div>
+                      <MenuItem label="My trips" onClick={() => {}} />
+                      <MenuItem label="My favorites" onClick={() => {}} />
+                      <MenuItem label="My reservations" onClick={() => {}} />
+                      <MenuItem label="My properties" onClick={() => {}} />
+                      <MenuItem label="Air bnb my home" onClick={() => {}} />
+                    </div>
+                    <div className="border-t border-gray-300">
+                      <MenuItem label="Logout" onClick={() => signOut()} />
+                    </div>
+                  </>
+                )}
           </div>
         </div>
       </div>

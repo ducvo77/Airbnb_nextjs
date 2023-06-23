@@ -5,6 +5,7 @@ import { Typography, Card, Button } from '@material-tailwind/react'
 import { useCallback, useEffect, useState } from 'react'
 import { FcGoogle } from 'react-icons/fc'
 import { AiFillGithub } from 'react-icons/ai'
+import { signIn } from 'next-auth/react'
 
 interface ModalProps {
   isOpen?: boolean
@@ -85,11 +86,17 @@ const Modal: React.FC<ModalProps> = ({
           </form>
           {/*footer*/}
           <div className="mt-4 border-t-[1px] pt-4 flex flex-col gap-3">
-            <button className="w-full flex border-[2px] border-black rounded-md p-2 relative items-center justify-center font-bold">
+            <button
+              onClick={() => signIn('google')}
+              className="w-full flex border-[2px] border-black rounded-md p-2 relative items-center justify-center font-bold"
+            >
               <FcGoogle size={20} className="absolute left-4" />
               <span>Continue With Google</span>
             </button>
-            <button className="w-full flex border-[2px] border-black rounded-md p-2 relative items-center justify-center font-bold">
+            <button
+              onClick={() => signIn('github')}
+              className="w-full flex border-[2px] border-black rounded-md p-2 relative items-center justify-center font-bold"
+            >
               <AiFillGithub size={20} className="absolute left-4" />
               <span>Continue With Github</span>
             </button>
