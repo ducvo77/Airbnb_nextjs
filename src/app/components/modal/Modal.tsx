@@ -49,7 +49,11 @@ const Modal: React.FC<ModalProps> = ({
   return (
     show && (
       <div className="fixed inset-0  bg-black/50 flex items-center justify-center ">
-        <Card color="white" className="p-10 rounded-lg relative" shadow={true}>
+        <Card
+          color="white"
+          className={`p-10 rounded-lg relative`}
+          shadow={true}
+        >
           <FaXmark
             size={24}
             className="absolute right-3 top-3 cursor-pointer "
@@ -70,7 +74,7 @@ const Modal: React.FC<ModalProps> = ({
           <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
             {body}
             {/*footer*/}
-            <Button className="mt-6 bg-primary" fullWidth>
+            <Button className="mt-6 bg-primary" fullWidth onClick={onSubmit}>
               Continue
             </Button>
           </form>
