@@ -20,6 +20,14 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const registerModal = useRegisterModal()
   const loginModal = useLoginModal()
 
+  const onRent = useCallback(() => {
+    if (!currentUser) {
+      return loginModal.onOpen()
+    } else {
+      return
+    }
+  }, [currentUser, loginModal])
+
   return (
     <div
       className="
@@ -44,7 +52,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           md:block hidden
           hover:bg-gray-100 hover:rounded-full
         "
-          onClick={() => {}}
+          onClick={onRent}
         >
           Cho thuê chỗ ở qua Airbnb
         </button>
