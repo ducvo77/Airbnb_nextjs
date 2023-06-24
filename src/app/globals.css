@@ -9,3 +9,7 @@
 .bg-primary {
     background-color: #F9385C;
 }
+
+.wrapper-categories::-webkit-scrollbar {
+    display: none;
+  }

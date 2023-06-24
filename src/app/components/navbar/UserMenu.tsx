@@ -81,6 +81,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
               text-sm
               rounded-md
               overflow-hidden
+              z-[99]
         "
           >
             {!currentUser

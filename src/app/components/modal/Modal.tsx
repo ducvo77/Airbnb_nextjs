@@ -100,6 +100,13 @@ const Modal: React.FC<ModalProps> = ({
               <AiFillGithub size={20} className="absolute left-4" />
               <span>Continue With Github</span>
             </button>
+            {/* <button
+              onClick={() => signIn('facebook')}
+              className="w-full flex border-[2px] border-black rounded-md p-2 relative items-center justify-center font-bold"
+            >
+              <AiFillGithub size={20} className="absolute left-4" />
+              <span>Continue With Facebook</span>
+            </button> */}
           </div>
           <div className="flex items-center justify-center mt-3 gap-2">
             {footer}

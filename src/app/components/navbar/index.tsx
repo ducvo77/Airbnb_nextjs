@@ -5,6 +5,7 @@ import Logo from './Logo'
 import Search from './Search'
 import UserMenu from './UserMenu'
 import { SafeUser } from '../../types'
+import Categories from './Categories'
 
 interface NavbarProps {
   currentUser?: SafeUser | null
@@ -15,26 +16,30 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
     <div
       className="
       navbar-wrapper
-      w-full h-20 
+      w-full h-auto 
       fixed top-0 left-0 right-0
       bg-white
-      shadow-sm
-      border-b-[1px]
+   
     "
     >
-      <Container>
-        <div
-          className="
+      <div className="shadow-sm border-b-[1px]">
+        <Container>
+          <div
+            className="
           w-full
+          h-20
+        
           flex flex-grow items-center justify-between
           gap-3 md:gap-0
         "
-        >
-          <Logo />
-          <Search />
-          <UserMenu currentUser={currentUser} />
-        </div>
-      </Container>
+          >
+            <Logo />
+            <Search />
+            <UserMenu currentUser={currentUser} />
+          </div>
+        </Container>
+      </div>
+      <Categories />
     </div>
   )
 }
