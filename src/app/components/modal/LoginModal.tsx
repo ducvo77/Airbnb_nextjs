@@ -9,6 +9,8 @@ import useRegisterModal from '@/app/hooks/useRegisterModal'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
 import { signIn } from 'next-auth/react'
+import { FcGoogle } from 'react-icons/fc'
+import { AiFillGithub } from 'react-icons/ai'
 
 const LoginModal = () => {
   const router = useRouter()
@@ -64,8 +66,28 @@ const LoginModal = () => {
       />
     </div>
   )
+
+  const loginSocial = (
+    <div className="mt-4 border-t-[1px] pt-4 flex flex-col gap-3">
+      <button
+        onClick={() => signIn('google')}
+        className="w-full flex border-[2px] border-black rounded-md p-2 relative items-center justify-center font-bold"
+      >
+        <FcGoogle size={20} className="absolute left-4" />
+        <span>Continue With Google</span>
+      </button>
+      <button
+        onClick={() => signIn('github')}
+        className="w-full flex border-[2px] border-black rounded-md p-2 relative items-center justify-center font-bold"
+      >
+        <AiFillGithub size={20} className="absolute left-4" />
+        <span>Continue With Github</span>
+      </button>
+    </div>
+  )
+
   const footer = (
-    <>
+    <div className="flex items-center justify-center mt-3 gap-2">
       <span>No account?</span>
       <span
         onClick={onToggle}
@@ -73,8 +95,9 @@ const LoginModal = () => {
       >
         Register a new account
       </span>
-    </>
+    </div>
   )
+
   return (
     <Modal
       title="Login"
@@ -83,8 +106,10 @@ const LoginModal = () => {
       isOpen={loginModal.isOpen}
       body={body}
       footer={footer}
+      loginSocial={loginSocial}
       onClose={loginModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
+      actionLabel="Login"
     />
   )
 }

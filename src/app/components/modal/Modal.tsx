@@ -15,7 +15,11 @@ interface ModalProps {
   label: string
   description: string
   body: React.ReactElement
+  loginSocial?: React.ReactElement
   footer: React.ReactElement
+  actionLabel: string
+  secondaryActionLabel?: string
+  secondaryAction?: () => void
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -26,7 +30,11 @@ const Modal: React.FC<ModalProps> = ({
   label,
   description,
   body,
+  loginSocial,
   footer,
+  actionLabel,
+  secondaryActionLabel,
+  secondaryAction,
 }) => {
   const [show, setShow] = useState(false)
 
@@ -52,68 +60,62 @@ const Modal: React.FC<ModalProps> = ({
   if (!isOpen) {
     return null
   }
-
   return (
-    show && (
-      <div className="modal fixed inset-0  bg-black/50 flex items-center justify-center ">
-        <Card
-          color="white"
-          className={`p-10 rounded-lg relative`}
-          shadow={true}
+    <div
+      className={`modal fixed inset-0 flex items-center justify-center transition duration-300 ${
+        show ? 'bg-black/50' : 'bg-transparent'
+      }`}
+    >
+      <Card
+        color="white"
+        className={`p-10 rounded-lg relative transition-transform duration-300 w-80 max-w-screen-lg sm:w-[30rem] max-h-[90vh] ${
+          show ? 'translate-y-[0] opacity-100' : 'translate-y-[150%] opacity-0'
+        }`}
+        shadow={true}
+      >
+        <FaXmark
+          size={24}
+          className="absolute right-3 top-3 cursor-pointer "
+          onClick={handleClose}
+        />
+        <div className="flex relative items-center justify-center pb-3 border-b mb-3">
+          <h3 className="font-bold text-black text-lg]">{title}</h3>
+        </div>
+        {/*header*/}
+        <Typography variant="h4" color="blue-gray">
+          {label}
+        </Typography>
+        <Typography color="gray" className="mt-1 font-normal">
+          {description}
+        </Typography>
+        {/*body*/}
+        <form className="mt-8 mb-2 w-full overflow-y-scroll">{body}</form>
+        <div
+          className={`grid gap-4 ${
+            secondaryActionLabel ? 'grid-cols-2' : 'grid-cols-1'
+          }`}
         >
-          <FaXmark
-            size={24}
-            className="absolute right-3 top-3 cursor-pointer "
-            onClick={handleClose}
-          />
-          <div className="flex relative items-center justify-center pb-3 border-b mb-3">
-            <h3 className="font-bold text-black text-lg]">{title}</h3>
-          </div>
-          {/*header*/}
-          <Typography variant="h4" color="blue-gray">
-            {label}
-          </Typography>
-          <Typography color="gray" className="mt-1 font-normal">
-            {description}
-          </Typography>
-          {/*body*/}
-          <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
-            {body}
-
-            <Button className="mt-6 bg-primary" fullWidth onClick={onSubmit}>
-              Continue
+          {secondaryActionLabel && (
+            <Button
+              className="mt-6 bg-primary"
+              fullWidth
+              onClick={secondaryAction}
+            >
+              {secondaryActionLabel}
             </Button>
-          </form>
-          {/*footer*/}
-          <div className="mt-4 border-t-[1px] pt-4 flex flex-col gap-3">
-            <button
-              onClick={() => signIn('google')}
-              className="w-full flex border-[2px] border-black rounded-md p-2 relative items-center justify-center font-bold"
-            >
-              <FcGoogle size={20} className="absolute left-4" />
-              <span>Continue With Google</span>
-            </button>
-            <button
-              onClick={() => signIn('github')}
-              className="w-full flex border-[2px] border-black rounded-md p-2 relative items-center justify-center font-bold"
-            >
-              <AiFillGithub size={20} className="absolute left-4" />
-              <span>Continue With Github</span>
-            </button>
-            {/* <button
-              onClick={() => signIn('facebook')}
-              className="w-full flex border-[2px] border-black rounded-md p-2 relative items-center justify-center font-bold"
-            >
-              <AiFillGithub size={20} className="absolute left-4" />
-              <span>Continue With Facebook</span>
-            </button> */}
-          </div>
-          <div className="flex items-center justify-center mt-3 gap-2">
-            {footer}
-          </div>
-        </Card>
-      </div>
-    )
+          )}
+          <Button className="mt-6 bg-primary" fullWidth onClick={handleSubmit}>
+            {actionLabel}
+          </Button>
+        </div>
+        {/* Login social */}
+        {loginSocial}
+
+        {/*footer*/}
+
+        {footer}
+      </Card>
+    </div>
   )
 }
 
