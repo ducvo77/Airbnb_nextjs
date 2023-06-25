@@ -16,7 +16,7 @@ interface ModalProps {
   description: string
   body: React.ReactElement
   loginSocial?: React.ReactElement
-  footer: React.ReactElement
+  footer?: React.ReactElement
   actionLabel: string
   secondaryActionLabel?: string
   secondaryAction?: () => void
@@ -60,6 +60,7 @@ const Modal: React.FC<ModalProps> = ({
   if (!isOpen) {
     return null
   }
+
   return (
     <div
       className={`modal fixed inset-0 flex items-center justify-center transition duration-300 ${
@@ -89,7 +90,9 @@ const Modal: React.FC<ModalProps> = ({
           {description}
         </Typography>
         {/*body*/}
-        <form className="mt-8 mb-2 w-full overflow-y-scroll">{body}</form>
+        <form className="pt-8 pb-2 w-full max-h-[60%] overflow-y-scroll">
+          <>{body}</>
+        </form>
         <div
           className={`grid gap-4 ${
             secondaryActionLabel ? 'grid-cols-2' : 'grid-cols-1'
@@ -110,9 +113,7 @@ const Modal: React.FC<ModalProps> = ({
         </div>
         {/* Login social */}
         {loginSocial}
-
         {/*footer*/}
-
         {footer}
       </Card>
     </div>
