@@ -9,9 +9,10 @@ import axios from 'axios'
 import { toast } from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import useCountries from '@/app/hooks/useCountries'
-import Map from '../Map'
 import dynamic from 'next/dynamic'
-import CoutrySelect from '../input/CoutrySelect'
+import CoutrySelect from '../inputs/CoutrySelect'
+import Counter from './Counter'
+import ImageUpload from './ImageUpload'
 
 interface RentModalProps {}
 
@@ -64,6 +65,7 @@ const RentModal: React.FC<RentModalProps> = ({}) => {
       dynamic(() => import('../Map'), {
         ssr: false,
       }),
+    // eslint-disable-next-line
     [location]
   )
 
@@ -152,8 +154,43 @@ const RentModal: React.FC<RentModalProps> = ({}) => {
           <Map center={location?.latlng} />
         </>
       ))
+  } else if (step === STEPS.INFO) {
+    ;(labelContent = 'Share some basics about your place'),
+      (descriptionContent = 'What amenities do you have'),
+      (bodyContent = (
+        <div className="flex flex-col gap-3">
+          <Counter
+            title="Guests"
+            subTitle="How many guests do you allow?"
+            value={guestCount}
+            onChange={(value) => setCustomValue('guestCount', value)}
+          />
+          <Counter
+            title="Rooms"
+            subTitle="How many rooms do you have?"
+            value={roomCount}
+            onChange={(value) => setCustomValue('roomCount', value)}
+          />
+          <Counter
+            title="BathRooms"
+            subTitle="How many bathrooms do you rooms have?"
+            value={bathroomCount}
+            onChange={(value) => setCustomValue('bathroomCount', value)}
+          />
+        </div>
+      ))
+  } else if (step === STEPS.IMAGES) {
+    ;(labelContent = 'Add a photo of your place'),
+      (descriptionContent = 'Show guest what your place look like!'),
+      (bodyContent = (
+        <div className="flex flex-col gap-3">
+          <ImageUpload
+            value={imageSrc}
+            onChange={(value) => setCustomValue('imageSrc', value)}
+          />
+        </div>
+      ))
   }
-  console.log(location)
 
   return (
     <Modal

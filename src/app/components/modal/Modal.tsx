@@ -3,9 +3,6 @@
 import { FaXmark } from 'react-icons/fa6'
 import { Typography, Card, Button } from '@material-tailwind/react'
 import { useCallback, useEffect, useState } from 'react'
-import { FcGoogle } from 'react-icons/fc'
-import { AiFillGithub } from 'react-icons/ai'
-import { signIn } from 'next-auth/react'
 
 interface ModalProps {
   isOpen?: boolean
@@ -84,7 +81,7 @@ const Modal: React.FC<ModalProps> = ({
         </div>
         {/*header*/}
         <Typography variant="h4" color="blue-gray">
-          {label}
+          <span className="text-xl whitespace-nowrap">{label}</span>
         </Typography>
         <Typography color="gray" className="mt-1 font-normal">
           {description}

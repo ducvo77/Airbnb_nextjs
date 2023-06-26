@@ -108,7 +108,10 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                       <MenuItem label="My favorites" onClick={() => {}} />
                       <MenuItem label="My reservations" onClick={() => {}} />
                       <MenuItem label="My properties" onClick={() => {}} />
-                      <MenuItem label="Air bnb my home" onClick={() => {}} />
+                      <MenuItem
+                        label="Air bnb my home"
+                        onClick={rentModal.onOpen}
+                      />
                     </div>
                     <div className="border-t border-gray-300">
                       <MenuItem label="Logout" onClick={() => signOut()} />
