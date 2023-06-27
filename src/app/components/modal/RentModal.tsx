@@ -13,6 +13,8 @@ import dynamic from 'next/dynamic'
 import CoutrySelect from '../inputs/CoutrySelect'
 import Counter from './Counter'
 import ImageUpload from './ImageUpload'
+import { Input } from '@material-tailwind/react'
+import { MdOutlineAttachMoney } from 'react-icons/md'
 
 interface RentModalProps {}
 
@@ -81,7 +83,6 @@ const RentModal: React.FC<RentModalProps> = ({}) => {
     if (step !== STEPS.PRICE) {
       return onNext()
     }
-
     axios
       .post('/api/listings', data)
       .then(() => {
@@ -187,6 +188,37 @@ const RentModal: React.FC<RentModalProps> = ({}) => {
           <ImageUpload
             value={imageSrc}
             onChange={(value) => setCustomValue('imageSrc', value)}
+          />
+        </div>
+      ))
+  } else if (step === STEPS.DESCRIPTION) {
+    ;(labelContent = 'How would you describe your place?'),
+      (descriptionContent = 'Short and sweet works best!'),
+      (bodyContent = (
+        <div className="flex flex-col gap-3">
+          <Input
+            label="Title"
+            required
+            {...register('title', { required: true })}
+          />
+          <Input
+            label="Description"
+            required
+            {...register('description', { required: true })}
+          />
+        </div>
+      ))
+  } else if (step === STEPS.PRICE) {
+    ;(labelContent = 'Now, set your price'),
+      (descriptionContent = 'How much do you charge per night?'),
+      (bodyContent = (
+        <div className="flex flex-col gap-3">
+          <Input
+            label="Price"
+            type="number"
+            {...register('price', { required: true })}
+            required
+            icon={<MdOutlineAttachMoney />}
           />
         </div>
       ))

@@ -36,7 +36,7 @@ export default async function RootLayout({
           <ToasterProvider />
         </ClientOnly>
 
-        <section className="mt-24">
+        <section className="mt-[180px] mb-20">
           <Container>{children}</Container>
         </section>
       </body>
