@@ -18,8 +18,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
       navbar-wrapper
       w-full h-auto 
       fixed top-0 left-0 right-0
-      bg-white
-   
+      bg-white z-[1]
     "
     >
       <div className="shadow-sm border-b-[1px]">

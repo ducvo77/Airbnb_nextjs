@@ -21,7 +21,7 @@ export default async function Page(props: PageProps) {
 
   return (
     <ClientOnly>
-      <div className="grid grid-cols-4 gap-5">
+      <div className="grid grid-cols-5 gap-8 w-full h-[1000px] z-1">
         {listings.map((listing: any) => (
           <ListingCard
             key={listing.id}

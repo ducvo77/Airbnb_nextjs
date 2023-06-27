@@ -60,7 +60,7 @@ const Modal: React.FC<ModalProps> = ({
 
   return (
     <div
-      className={`modal fixed inset-0 flex items-center justify-center transition duration-300 ${
+      className={`modal fixed inset-0 flex items-center justify-center transition z-[999] duration-300 ${
         show ? 'bg-black/50' : 'bg-transparent'
       }`}
     >
