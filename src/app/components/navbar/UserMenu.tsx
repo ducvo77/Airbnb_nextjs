@@ -8,6 +8,7 @@ import useLoginModal from '@/app/hooks/useLoginModal'
 import { signOut } from 'next-auth/react'
 import { SafeUser } from '../../types'
 import useRentModal from '@/app/hooks/useRentModal'
+import { toast } from 'react-hot-toast'
 
 interface UserMenuProps {
   currentUser?: SafeUser | null
@@ -60,6 +61,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
         </button>
         <MdLanguage
           size={44}
+          onClick={() => toast.error('Chức năng chưa được cập nhật')}
           className="
             hidden md:block
             fill-gray-700

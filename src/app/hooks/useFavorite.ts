@@ -39,6 +39,7 @@ const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
         } else {
           request = () => axios.post(`/api/favorites/${listingId}`)
         }
+        console.log(hasFavorited)
 
         await request()
         router.refresh()
