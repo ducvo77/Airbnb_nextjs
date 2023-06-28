@@ -7,12 +7,12 @@ import { SafeUser } from '@/app/types'
 
 import useLoginModal from './useLoginModal'
 
-interface IUseFavorite {
+interface UseFavorite {
   listingId: string
   currentUser?: SafeUser | null
 }
 
-const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
+const useFavorite = ({ listingId, currentUser }: UseFavorite) => {
   const router = useRouter()
 
   const loginModal = useLoginModal()
@@ -39,7 +39,6 @@ const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
         } else {
           request = () => axios.post(`/api/favorites/${listingId}`)
         }
-        console.log(hasFavorited)
 
         await request()
         router.refresh()
